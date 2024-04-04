@@ -12,8 +12,8 @@ func Fold[E, SUM any, S ~[]E](slice S, fold func(sum SUM, itera Itera[E]) SUM) f
 func FoldE[E, SUM any, S ~[]E](slice S, fold func(sum SUM, itera Itera[E]) (SUM, error)) func(sum SUM) (SUM, error) {
 	return func(sum SUM) (SUM, error) {
 		var err error
-		return sum, ChunkE(slice, 1, func(_ int, iteras ...Itera[E]) error {
-			sum, err = fold(sum, iteras[0])
+		return sum, BatchE(len(slice), 1, func(_ int, i, j int) error {
+			sum, err = fold(sum, Itera[E]{Cur: slice[i], Pos: i})
 			return err
 		})
 	}
