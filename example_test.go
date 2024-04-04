@@ -24,3 +24,23 @@ func ExampleChunk() {
 	// 2 [{5 4} {6 5} {7 6} {8 7}]
 	// 3 [{9 8}]
 }
+
+func ExampleFilter() {
+	fmt.Println(Filter([]int64{5, 6, 7, 3}, func(itera Itera[int64]) bool { return itera.Cur < 6 }))
+	// Output:
+	// [5 3]
+}
+
+func ExampleFold() {
+	fmt.Println(Fold([]int64{1, 2, 3, 4, 5, 6, 7, 8, 9}, func(sum int64, itera Itera[int64]) int64 { return sum + itera.Cur })(0))
+	// Output:
+	// 45
+}
+
+func ExampleMap() {
+	fmt.Println(Map([]int64{1, 2, 3, 4, 5, 6, 7, 8, 9}, func(itera Itera[int64]) int64 {
+		return itera.Cur + 1
+	}))
+	// Output:
+	// [2 3 4 5 6 7 8 9 10]
+}
