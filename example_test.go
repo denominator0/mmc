@@ -44,3 +44,15 @@ func ExampleMap() {
 	// Output:
 	// [2 3 4 5 6 7 8 9 10]
 }
+
+func ExampleOPT() {
+	type opt struct {
+		first  bool
+		second int
+	}
+	func(foo string, options ...Option[opt]) {
+		fmt.Println(foo, OPT(options...))
+	}("bar", func(o *opt) { o.first = true }, func(o *opt) { o.second = 2 })
+	// Output:
+	// bar {true 2}
+}
